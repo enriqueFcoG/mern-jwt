@@ -7,8 +7,8 @@ import { LoginDto } from './dto/login.dto';
 export class AuthService {
   constructor(private usersService: UsersService) {}
 
-  register(registerDto: RegisterDto) {
-    const user = this.usersService.findByEmail(registerDto.email);
+  async register(registerDto: RegisterDto) {
+    const user = await this.usersService.findByEmail(registerDto.email);
     if (user) {
       return 'User already exists';
     }
