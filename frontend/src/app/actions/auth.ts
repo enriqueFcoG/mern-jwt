@@ -1,0 +1,44 @@
+"use server"
+import { SignupFormSchema, FormState } from '@/app/lib/definitions'
+import { createSession } from '../lib/session';
+import { redirect } from 'next/navigation';
+ 
+export async function signup(state: FormState, formData: FormData) {
+    //using zod to validate form data
+    const validatedFields = SignupFormSchema.safeParse({
+        firstName: formData.get('firstName'),
+        lastName: formData.get('lastName'),
+        email: formData.get('email'),
+        password: formData.get('password'),
+    })
+ 
+    if (!validatedFields.success) {
+        return {
+            errors: validatedFields.error.flatten().fieldErrors,
+        }
+    }
+
+    //call backend api to create user
+    const { firstName, lastName , email, password } = validatedFields.data
+
+    const res = await fetch(`${process.env.BACKEND_URL}/api/auth/register`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ firstName, lastName, email, password }),
+    });
+
+    const data = await res.json();
+ 
+    const user = data
+ 
+    if (!user) {
+        return {
+            message: 'An error occurred while creating your account.',
+        }
+    }
+
+    //create session and set cookie
+    await createSession(user.id)
+    redirect('/profile')
+ 
+}
