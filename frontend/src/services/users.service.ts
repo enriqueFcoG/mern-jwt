@@ -1,5 +1,6 @@
 "use server"
 
+import { User } from "@/shared/types";
 import { cookies } from "next/headers";
 
 export const  getUsers = async () => {
@@ -13,7 +14,6 @@ export const  getUsers = async () => {
     },
     cache: "no-store",
   });
-
   if (!res.ok) return null;
 
   const users = await res.json();
@@ -59,16 +59,17 @@ export const getUser = async (id: number) => {
   return users
 }
 
-export const updateUser = async (id: number) => {
+export const updateUser = async (id: string, user: any) => {
   const cookieStore = cookies();
   const token = (await cookieStore).get("access_token")?.value;
 
   const res = await fetch(`${process.env.BACKEND_URL}/api/users/${id}`, {
-    method: "GET",
+    method: "PATCH",
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     },
+    body: JSON.stringify(user),
     cache: "no-store",
   });
   
