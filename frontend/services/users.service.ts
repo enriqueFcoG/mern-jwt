@@ -7,9 +7,6 @@ export const  getUsers = async () => {
   try {
     const res = await fetch(`${process.env.BACKEND_URL}/api/users`, {
     method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
     credentials: "include",
     cache: "no-store",
   });
@@ -27,9 +24,6 @@ export const getCurrentUser = async () => {
   try {
       const res = await fetch(`${process.env.BACKEND_URL}/api/users/me`, {
     method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
     credentials: "include",
     cache: "no-store",
   });
