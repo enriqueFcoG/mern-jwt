@@ -4,9 +4,8 @@ import { User } from "@/shared/types";
 import { cookies } from "next/headers";
 
 export const  getUsers = async () => {
-  const cookieStore = cookies();
-  const token = (await cookieStore).get("access_token")?.value;
-  const res = await fetch(`${process.env.BACKEND_URL}/api/users`, {
+  try {
+      const res = await fetch(`${process.env.BACKEND_URL}/api/users`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -19,6 +18,10 @@ export const  getUsers = async () => {
   const users = await res.json();
 
   return users
+  } catch (error) {
+    console.error("Error... ", error)
+  }
+
 }
 export const getCurrentUser = async () => {
   const cookieStore = cookies();
