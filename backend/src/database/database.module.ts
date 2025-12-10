@@ -20,6 +20,9 @@ import { TypeOrmModule } from "@nestjs/typeorm";
                 logging: true,
                 autoLoadEntities: true,
                 synchronize: true,
+                extra: {
+                    family: 4
+                }
             }),
         }),
     ]
