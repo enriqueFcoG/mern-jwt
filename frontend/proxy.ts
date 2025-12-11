@@ -4,7 +4,7 @@ import type { NextRequest } from 'next/server';
 export function proxy(req: NextRequest) {
   return NextResponse.next();
   const token = req.cookies.get("access_token")?.value;
-
+  console.log("TOKEN ", token)
   const publicRoutes = ["/login", "/register"];
   const isPublic = publicRoutes.includes(req.nextUrl.pathname);
   // redirect to login if we don't have token and if its a private url (home, profile)

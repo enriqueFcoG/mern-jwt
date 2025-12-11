@@ -1,8 +1,6 @@
-
 import { redirect } from "next/navigation";
 import { LoginState, SigninFormSchema } from "../../app/lib/definitions";
 import { authenticateUser } from "../../services/auth.service";
-import { createSession } from "../../lib/server/session";
 
 export async function signin(prevState: LoginState , formData: FormData): Promise<LoginState> {
     //using zod to validate form data

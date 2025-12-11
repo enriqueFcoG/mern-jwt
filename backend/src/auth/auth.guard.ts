@@ -23,6 +23,9 @@ export class JwtAuthGuard implements CanActivate {
     }
     const request = context.switchToHttp().getRequest();
     const token = this.extractTokenFromHeader(request);
+    console.log('Cookies received:', request.cookies);
+    console.log('Headers received:', request.headers);
+    
     if (!token) {
       throw new UnauthorizedException();
     }
@@ -43,9 +46,9 @@ export class JwtAuthGuard implements CanActivate {
   private extractTokenFromHeader(request: Request): string | undefined {
     console.log("COOKIES: ", request.cookies)
     const authHeader = request.headers.authorization?.split(' ');
-  if (authHeader && authHeader[0] === 'Bearer') return authHeader[1];
+    if (authHeader && authHeader[0] === 'Bearer') return authHeader[1];
   
-  if (request.cookies && request.cookies.access_token) return request.cookies.access_token;
-  return undefined;
+    if (request.cookies && request.cookies.access_token) return request.cookies.access_token;
+    return undefined;
   }
 }

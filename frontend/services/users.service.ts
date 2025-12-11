@@ -1,4 +1,3 @@
-"use client"
 import { User } from "@/shared/types";
 
 export const  getUsers = async () => {
@@ -16,10 +15,11 @@ export const  getUsers = async () => {
   const users = await res.json();
 
   return users
+
 }
 export const getCurrentUser = async () => {
 
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/users/me`, {
+const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/users/me`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -33,6 +33,7 @@ export const getCurrentUser = async () => {
   const users = await res.json();
 
   return users
+
 }
 export const getUser = async (id: number) => {
 

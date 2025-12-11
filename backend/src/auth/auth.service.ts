@@ -15,11 +15,12 @@ export class AuthService {
       expiresIn: '15m',
     });
 
-    const refreshToken = this.jwtService.sign(payload, {
-      expiresIn: '7d',
-    });
+    // const refreshToken = this.jwtService.sign(payload, {
+    //   secret: process.env.JWT_REFRESH_SECRET,
+    //   expiresIn: '7d',
+    // });
 
-    return { accessToken, refreshToken };
+    return { accessToken, refreshToken: "" };
   }
 
   async hashToken(token: string) {
