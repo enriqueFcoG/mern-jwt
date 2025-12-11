@@ -1,4 +1,9 @@
-import { token, User } from "@/shared/types";
+import { User } from "@/shared/types";
+
+export const token = document.cookie
+  .split('; ')
+  .find(row => row.startsWith('access_token='))
+  ?.split('=')[1];
 
 export const  getUsers = async () => {
   try {
