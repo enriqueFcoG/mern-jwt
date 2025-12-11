@@ -3,7 +3,16 @@ import type { NextRequest } from 'next/server';
 
 export  async function proxy(req: NextRequest) {
   console.log("Todas las cookies:", req.cookies); 
-  const token = req.cookies.get("access_token")?.value;
+  let token: string | null = null;
+
+  if (process.env.NODE_ENV === 'production') {
+    // since this middleware is not able to read cookies in prod, we are going to read it from headers
+    const authHeader = req.headers.get('authorization');
+    token = authHeader?.startsWith('Bearer ') ? authHeader.split(' ')[1] : null;
+  } else {
+    // dev mode will work with cookies
+    token = req.cookies.get('access_token')?.value || null;
+  }
   console.log("TOKEN ", token)
   const publicRoutes = ["/login", "/register"];
   const isPublic = publicRoutes.includes(req.nextUrl.pathname);
