@@ -25,7 +25,7 @@ export class JwtAuthGuard implements CanActivate {
     const token = this.extractTokenFromHeader(request);
     console.log('Cookies received:', request.cookies);
     console.log('Headers received:', request.headers);
-    
+    console.log("Cookie token received", request.token)
     if (!token) {
       throw new UnauthorizedException();
     }
@@ -38,6 +38,8 @@ export class JwtAuthGuard implements CanActivate {
       );
       request['user'] = payload;
     } catch {
+      console.log("error while verify token ", token)
+      console.log(jwtConstants.secret)
       throw new UnauthorizedException();
     }
     return true;
