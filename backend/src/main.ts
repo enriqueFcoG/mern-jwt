@@ -22,17 +22,17 @@ async function bootstrap() {
   })
   app.setGlobalPrefix('api');
 
-  const config = new DocumentBuilder()
-    .setTitle('API Documentation')
-    .setDescription('Documentación de la API con Swagger en NestJS')
-    .setVersion('1.0')
-    .addBearerAuth() // Agrega soporte para JWT en la UI
-    .build();
+  // const config = new DocumentBuilder()
+  //   .setTitle('API Documentation')
+  //   .setDescription('Documentación de la API con Swagger en NestJS')
+  //   .setVersion('1.0')
+  //   .addBearerAuth() // Agrega soporte para JWT en la UI
+  //   .build();
 
-  const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('docs', app, document, {
-    swaggerOptions: { persistAuthorization: true }, // Mantiene el token al recargar
-  });
+  // const document = SwaggerModule.createDocument(app, config);
+  // SwaggerModule.setup('docs', app, document, {
+  //   swaggerOptions: { persistAuthorization: true }, // Mantiene el token al recargar
+  // });
   
   await app.listen(process.env.PORT ?? 3001);
 }
