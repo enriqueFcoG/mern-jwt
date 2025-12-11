@@ -18,8 +18,8 @@ export const  getUsers = async () => {
 
 }
 export const getCurrentUser = async () => {
-
-const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/users/me`, {
+  try {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/users/me`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -33,7 +33,9 @@ const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/users/me`, {
   const users = await res.json();
 
   return users
-
+  } catch (error) {
+    console.error("error...", error)
+  }
 }
 export const getUser = async (id: number) => {
 
