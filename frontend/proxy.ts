@@ -8,6 +8,7 @@ export  async function proxy(req: NextRequest) {
   if (process.env.NODE_ENV === 'production') {
     // since this middleware is not able to read cookies in prod, we are going to read it from headers
     const authHeader = req.headers.get('authorization');
+    console.log("AUTH HEADER ", authHeader)
     token = authHeader?.startsWith('Bearer ') ? authHeader.split(' ')[1] : null;
   } else {
     // dev mode will work with cookies
