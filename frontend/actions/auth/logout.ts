@@ -8,5 +8,5 @@ export async function logout() {
       credentials: "include"
     });
 
-    redirect('/')
+    redirect('/login')
 }

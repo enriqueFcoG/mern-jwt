@@ -61,7 +61,7 @@ export default function UserProfileEdit({ user }: UserProfileEditProps) {
             name="firstName"
             value={formData.firstName}
             onChange={handleChange}
-            className="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-primary-light"
+            className="w-full text-secondary-light border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-primary-light"
           />
         </div>
 
@@ -72,7 +72,7 @@ export default function UserProfileEdit({ user }: UserProfileEditProps) {
             name="lastName"
             value={formData.lastName}
             onChange={handleChange}
-            className="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-primary-light"
+            className="w-full text-secondary-light border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-primary-light"
           />
         </div>
 
@@ -83,14 +83,14 @@ export default function UserProfileEdit({ user }: UserProfileEditProps) {
             name="email"
             value={formData.email}
             onChange={handleChange}
-            className="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-primary-light"
+            className="w-full text-secondary-light border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-primary-light"
           />
         </div>
 
         <button
           onClick={handleSubmit}
           disabled={loading}
-          className="w-full bg-primary-dark text-white p-2 rounded-md hover:bg-primary-light transition-colors"
+          className="w-full bg-primary-light text-white p-2 rounded-md hover:bg-primary-light transition-colors"
         >
           {loading ? "Saving..." : "Save Changes"}
         </button>

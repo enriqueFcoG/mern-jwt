@@ -1,7 +1,6 @@
 "use client"
 import { displayDate } from "@/shared/helpers";
 import { User } from "@/shared/types";
-// import { format } from "date-fns";
 
 interface UserProfileCardProps {
   user: User;
@@ -23,7 +22,7 @@ export default function UserProfileCard({ user }: UserProfileCardProps) {
         <p className="text-gray-600">{user.email}</p>
 
         <p className="mt-2 text-sm text-gray-500">
-          Joined on today
+          Joined on { displayDate(user.createdAt.toLocaleString()) }
         </p>
       </div>
 
