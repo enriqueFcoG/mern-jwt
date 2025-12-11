@@ -1,7 +1,5 @@
 "use client";
 
-import React from "react";
-
 interface FormFieldProps {
   id: string;
   name: string;

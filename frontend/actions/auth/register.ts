@@ -16,12 +16,12 @@ export async function signup(state: FormState, formData: FormData) {
         }
     }
 
-    //call backend api to create user
     const { firstName, lastName , email, password } = validatedFields.data
 
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/register`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
+      credentials: "include",
       body: JSON.stringify({ firstName, lastName, email, password }),
     });
 
@@ -35,14 +35,13 @@ export async function signup(state: FormState, formData: FormData) {
     const data = await res.json();
  
     const user = data
+
     if (!user) {
         return {
             message: 'An error occurred while creating your account.',
         }
     }
 
-    //create session and set cookie
-    // await createSession(user.access_token, user.refresh_token)
     redirect('/profile')
  
 }

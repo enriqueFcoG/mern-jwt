@@ -1,3 +1,4 @@
+import { displayDate } from "@/shared/helpers";
 import { User } from "@/shared/types";
 
 interface UserTableProps {
@@ -32,7 +33,7 @@ export default function UserTable({ users }: UserTableProps) {
                 <td className="px-6 py-4 text-sm text-gray-800">{user.firstName}</td>
                 <td className="px-6 py-4 text-sm text-gray-800">{user.lastName}</td>
                 <td className="px-6 py-4 text-sm text-gray-800">{user.email}</td>
-                <td className="px-6 py-4 text-sm text-gray-600">{"Test"}</td>
+                <td className="px-6 py-4 text-sm text-gray-600">{ displayDate(user.createdAt.toLocaleString()) }</td>
               </tr>
             ))}
 

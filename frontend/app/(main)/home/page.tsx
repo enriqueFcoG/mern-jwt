@@ -2,11 +2,12 @@
 import UserProfileCard from "@/components/UserProfileCard"
 import UserTable from "@/components/UserTable"
 import { getCurrentUser, getUsers } from "@/services/users.service"
+import { User } from "@/shared/types"
 import { useEffect, useState } from "react"
 
 const Home = () => {
-  const [users, setUsers] = useState([]);
-  const [currentUser, setCurrentUser] = useState(null);
+  const [users, setUsers] = useState<User[] | null>([]);
+  const [currentUser, setCurrentUser] = useState<User | null>(null);
 
   useEffect(() => {
     async function fetchData() {

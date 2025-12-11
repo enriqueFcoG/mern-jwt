@@ -5,7 +5,7 @@ export const token = document.cookie
   .find(row => row.startsWith('access_token='))
   ?.split('=')[1];
 
-export const  getUsers = async () => {
+export const  getUsers = async (): Promise<User[] | null > => {
   try {
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/users`, {
     method: "GET",
@@ -18,11 +18,12 @@ export const  getUsers = async () => {
 
   return users
   } catch (error) {
-    console.error("Error... ", error)
+    console.error("Error", error)
+    return null
   }
 
 }
-export const getCurrentUser = async () => {
+export const getCurrentUser = async (): Promise<User | null> => {
   try {
       const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/users/me`, {
     method: "GET",
@@ -35,19 +36,18 @@ export const getCurrentUser = async () => {
     credentials: "include",
     cache: "no-store",
   });
-  console.log("headers::::::: ", res.headers)
-  console.log("res::::: ", res)
   if (!res.ok) return null;
 
-  const users = await res.json();
+  const user = await res.json();
 
-  return users
+  return user
   } catch (error) {
     console.error("error...", error)
+    return null
   }
 
 }
-export const getUser = async (id: number) => {
+export const getUser = async (id: number): Promise<User | null> => {
 
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/users/${id}`, {
     method: "GET",
@@ -60,9 +60,9 @@ export const getUser = async (id: number) => {
   
   if (!res.ok) return null;
 
-  const users = await res.json();
+  const user = await res.json();
 
-  return users
+  return user
 }
 
 export const updateUser = async (id: string, user: any) => {

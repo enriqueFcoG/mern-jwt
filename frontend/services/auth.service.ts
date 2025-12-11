@@ -9,6 +9,6 @@ export const  authenticateUser = async ({ email, password }: {email:string, pass
   if (!res.ok) return null;
 
   const user = await res.json();
-  console.log("RESPONSE LOGIN ", res)
+  
   return user.message;
 }

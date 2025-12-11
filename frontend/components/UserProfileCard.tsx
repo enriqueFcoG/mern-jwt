@@ -1,4 +1,5 @@
 "use client"
+import { displayDate } from "@/shared/helpers";
 import { User } from "@/shared/types";
 // import { format } from "date-fns";
 
@@ -47,7 +48,7 @@ export default function UserProfileCard({ user }: UserProfileCardProps) {
         <div>
           <p className="text-gray-500 text-sm">Created At</p>
           <p className="text-gray-900 font-medium">
-            today
+            { displayDate(user.createdAt.toString()) }
           </p>
         </div>
       </div>

@@ -29,7 +29,7 @@ export default function UserProfileEdit({ user }: UserProfileEditProps) {
     setSuccessMessage("");
     setErrorMessage("");
     try {
-      await updateUser(user.id, formData); // llama al service
+      await updateUser(user.id, formData);
       setSuccessMessage("User updated successfully!");
     } catch (err) {
       console.error(err);
