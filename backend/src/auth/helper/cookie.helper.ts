@@ -1,6 +1,13 @@
-import { Response } from 'express';
+import { CookieOptions, Response } from 'express';
 
 export class CookieHelper {
+  static cookieOptions: CookieOptions = {
+    httpOnly: true,
+    secure: true,
+    sameSite: 'none',
+    path: '/',
+  
+  }
   static setAuthCookies(res: Response, accessToken: string, refreshToken: string) {
     res.cookie('access_token', accessToken, {
       httpOnly: true,
@@ -23,7 +30,7 @@ export class CookieHelper {
 
   static clearAuthCookies(res: Response) {
     console.log("Deleting cookies... ",res.cookie)
-    res.clearCookie('access_token');
-    res.clearCookie('refresh_token');
+    res.clearCookie('access_token',this.cookieOptions);
+    res.clearCookie('refresh_token', this.cookieOptions);
   }
 }
