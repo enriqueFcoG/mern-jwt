@@ -16,12 +16,12 @@ export class AuthService {
       expiresIn: '15m',
     });
 
-    // const refreshToken = this.jwtService.sign(payload, {
-    //   secret: process.env.JWT_REFRESH_SECRET,
-    //   expiresIn: '7d',
-    // });
+    const refreshToken = this.jwtService.sign(payload, {
+      secret: process.env.JWT_REFRESH_SECRET,
+      expiresIn: '7d',
+    });
 
-    return { accessToken, refreshToken: "" };
+    return { accessToken, refreshToken };
   }
 
   async hashToken(token: string) {
@@ -57,7 +57,7 @@ export class AuthService {
   }
 
   async logout(userId: number) {
-    //TODO: remove refresh token
+    //TODO: remove refresh token from DB
     return true;
   }
 }

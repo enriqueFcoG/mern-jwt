@@ -22,6 +22,7 @@ export class CookieHelper {
   }
 
   static clearAuthCookies(res: Response) {
+    console.log("Deleting cookies... ",res.cookie)
     res.clearCookie('access_token');
     res.clearCookie('refresh_token');
   }

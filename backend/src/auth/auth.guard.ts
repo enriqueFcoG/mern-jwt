@@ -25,7 +25,7 @@ export class JwtAuthGuard implements CanActivate {
     const token = this.extractTokenFromHeader(request);
     console.log('Cookies received:', request.cookies);
     console.log('Headers received:', request.headers);
-    console.log("Cookie token received", request.token)
+    console.log("Cookie token received", token)
     if (!token) {
       throw new UnauthorizedException();
     }
