@@ -8,9 +8,16 @@ export  async function proxy(req: NextRequest) {
   if (process.env.NODE_ENV === 'production') {
     // since this middleware is not able to read cookies in prod, we are going to read it from headers
     console.log("headers ", req.headers)
-    const authHeader = req.headers.get('authorization');
-    console.log("AUTH HEADER ", authHeader)
-    token = authHeader?.startsWith('Bearer ') ? authHeader.split(' ')[1] : null;
+    const scHeaders = req.headers.get('x-vercel-sc-headers');
+    if (scHeaders) {
+      try {
+        const parsed = JSON.parse(scHeaders);
+        const authHeader = parsed['Authorization'] || parsed['authorization'];
+        token = authHeader?.startsWith('Bearer ') ? authHeader.split(' ')[1] : null;
+      } catch (err) {
+        console.error('Error parsing x-vercel-sc-headers', err);
+      }
+    }
   } else {
     // dev mode will work with cookies
     token = req.cookies.get('access_token')?.value || null;
