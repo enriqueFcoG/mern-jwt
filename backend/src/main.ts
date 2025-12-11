@@ -6,9 +6,12 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.use(cookieParser())
   app.use((req: Request, res: Response, next: NextFunction) => {
-  console.log(`[${new Date().toISOString()}] ${req.method} ${req.url}`);
-  console.log('Cookies:', req);
-  console.log('Headers:', req.headers);
+  console.log('=== COOKIE DEBUG ===');
+  console.log('URL:', req.url);
+  console.log('Method:', req.method);
+  console.log('Cookies received:', req);
+  console.log('Headers.cookie:', req.headers.values());
+  console.log('Origin:', req.headers.values());
   next();
 });
   app.enableCors({
@@ -17,6 +20,7 @@ async function bootstrap() {
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],
   })
+  // app.enableCors()
   app.setGlobalPrefix('api');
   await app.listen(process.env.PORT ?? 3001);
 }
