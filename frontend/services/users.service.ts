@@ -1,4 +1,4 @@
-import { User } from "@/shared/types";
+import { token, User } from "@/shared/types";
 
 export const  getUsers = async () => {
   try {
@@ -21,6 +21,12 @@ export const getCurrentUser = async () => {
   try {
       const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/users/me`, {
     method: "GET",
+    headers: {
+    'Content-Type': 'application/json',
+    ...(process.env.NODE_ENV === 'production' && token
+      ? { Authorization: `Bearer ${token}` }
+      : {}),
+  },
     credentials: "include",
     cache: "no-store",
   });
