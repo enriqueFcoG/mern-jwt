@@ -1,11 +1,27 @@
+"use client"
 import Link from "next/link";
 import Image from "next/image";
+import { useEffect } from "react";
+import { getCurrentUser } from "@/services/users.service";
+import { redirect } from "next/navigation";
 
 export default function MainLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
+  useEffect(() => {
+    //we are going to check if we have a stored cookie in order to validate if a user is logged in 
+    const validateSession = async () => {
+      const user = await getCurrentUser()
+      if(!user) {
+        redirect("/login")
+      } 
+    }
+    validateSession()
+  })
+  
   return (
     <div className="min-h-screen flex">
       <aside className="w-48 bg-primary-light text-gray-200 p-6 flex flex-col">
