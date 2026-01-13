@@ -1,4 +1,4 @@
-# Aura research code challenge
+# MERN CRUD application
 
 ## Description
 This is a web application built with Next.js and NestJS where users can register, view a list of all registered users, and edit their own profiles. The application implements authentication using JWTs, managed via cookies for secure storage on the client, and demonstrates best practices in backend/frontend separation.
