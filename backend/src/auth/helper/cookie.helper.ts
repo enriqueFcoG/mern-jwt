@@ -3,8 +3,8 @@ import { CookieOptions, Response } from 'express';
 export class CookieHelper {
   static cookieOptions: CookieOptions = {
     httpOnly: true,
-    secure: true,
-    sameSite: 'none',
+    secure: false,
+    sameSite: 'lax',
     path: '/',
   
   }
