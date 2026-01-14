@@ -1,3 +1,4 @@
+"use client"
 import { displayDate } from "@/shared/helpers";
 import { User } from "@/shared/types";
 

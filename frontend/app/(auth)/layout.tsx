@@ -6,7 +6,7 @@ export default async function AuthLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-
+  console.log("rendering auth layout")
   const user = await validateSession();
 
   if (user?.email) {

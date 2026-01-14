@@ -10,7 +10,6 @@ export default function UserProfileCard({ user }: UserProfileCardProps) {
   return (
     <div className=" flex max-w-full mx-full w-full p-6 white shadow-md rounded-xl border border-gray-200">
       <div className="text-center">
-        {/* Avatar Placeholder */}
         <div className="w-24 h-24 mx-auto rounded-full bg-gradient-to-tr from-primary-light to-primary-dark flex items-center justify-center text-white text-3xl font-bold shadow-sm">
           {user.firstName.charAt(0)}
         </div>
