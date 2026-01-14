@@ -1,10 +1,15 @@
+"server-only"
 import { User } from "@/shared/types";
+import { cookies } from "next/headers";
 
 export const  getUsers = async (): Promise<User[] | null > => {
+  const cookieStores = await cookies()
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/users`, {
+    const res = await fetch(`${process.env.API_URL}/api/users`, {
     method: "GET",
-    credentials: "include",
+    headers: {
+      Cookie: cookieStores.toString(),
+    },
     cache: "no-store",
   });
   if (!res.ok) return null;
@@ -18,11 +23,14 @@ export const  getUsers = async (): Promise<User[] | null > => {
   }
 
 }
-export const getCurrentUser = async (): Promise<User | null> => {
+export const getCurrentUser = async ()=> {
+  const cookieStore = await cookies()
   try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/users/me`, {
+    const res = await fetch(`${process.env.API_URL}/api/users/me`, {
     method: "GET",
-    credentials: "include",
+    headers: {
+      Cookie: cookieStore.toString(),
+    },
     cache: "no-store",
   });
   if (!res.ok) return null;
@@ -31,17 +39,17 @@ export const getCurrentUser = async (): Promise<User | null> => {
 
   return user
   } catch (error) {
-    console.error("error...", error)
     return null
   }
 
 }
 export const getUser = async (id: number): Promise<User | null> => {
-
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/users/${id}`, {
+  const cookieStore = await cookies()
+  const res = await fetch(`${process.env.API_URL}/api/users/${id}`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
+      Cookie: cookieStore.toString(),
     },
     credentials: "include",
     cache: "no-store",
@@ -55,11 +63,12 @@ export const getUser = async (id: number): Promise<User | null> => {
 }
 
 export const updateUser = async (id: string, user: any) => {
-
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/users/${id}`, {
+  const cookieStore = await cookies()
+  const res = await fetch(`${process.env.API_URL}/api/users/${id}`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
+      Cookie: cookieStore.toString(),
     },
     credentials: "include",
     body: JSON.stringify(user),
@@ -74,10 +83,27 @@ export const updateUser = async (id: string, user: any) => {
 }
 
 export const validateSession = async () => {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_FRONT_URL}/api/me`, {
+const cookieStore = await cookies()
+  const res = await fetch(`${process.env.API_URL}/api/users/me`, {
+    headers: {
+      Cookie: cookieStore.toString(),
+    },
     cache: "no-store",
   });
-  console.log("res from internal API ", res)
+
+  if (!res.ok) return null;
+  return res.json();
+};
+
+export const logout = async () => {
+  const cookieStore = await cookies()
+  const res = await fetch(`${process.env.API_URL}/api/auth/logout`, {
+    method: "POST",
+    headers: {
+      Cookie: cookieStore.toString(),
+    },
+    cache: "no-store",
+  });
   if (!res.ok) return null;
   return res.json();
 };
