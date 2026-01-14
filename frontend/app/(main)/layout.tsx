@@ -1,26 +1,20 @@
-"use client"
 import Link from "next/link";
 import Image from "next/image";
-import { useEffect } from "react";
-import { getCurrentUser } from "@/services/users.service";
+import { validateSession } from "@/services/users.service";
 import { redirect } from "next/navigation";
+import LogoutButton from "@/components/LogoutButton";
 
-export default function MainLayout({
+export default async function MainLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
 
-  useEffect(() => {
-    //we are going to check if we have a stored cookie in order to validate if a user is logged in 
-    const validateSession = async () => {
-      const user = await getCurrentUser()
-      if(!user) {
-        redirect("/login")
-      } 
-    }
-    // validateSession()
-  })
+  //we are going to check if we have a stored cookie in order to validate if a user is logged in 
+  const user = await validateSession();
+  if (!user) {
+    redirect("/login");
+  }
   
   return (
     <div className="min-h-screen flex">
@@ -50,16 +44,10 @@ export default function MainLayout({
         </nav>
 
         <div className="mt-auto">
-          <Link
-            href="/logout"
-            className="block mt-6 bg-secondary-light hover:bg-red-700 px-3 py-2 rounded-md text-center transition"
-          >
-            Log out
-          </Link>
+          <LogoutButton />
         </div>
       </aside>
 
-      {/* Content */}
       <main className="flex-1 p-8 bg-gray-50">
         {children}
       </main>

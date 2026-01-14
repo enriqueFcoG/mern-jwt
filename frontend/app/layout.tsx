@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Aura Research",
-  description: "Aura research code challenge",
+  title: "Aura",
+  description: "Aura CRUD app",
 };
 
 export default function RootLayout({

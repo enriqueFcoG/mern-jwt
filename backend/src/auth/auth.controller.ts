@@ -48,17 +48,19 @@ export class AuthController {
 
   @ApiOperation({ summary: 'Log in for user (delete the access_token cookies)' })
   @ApiResponse({ status: 200, description: 'Success message' })
+  @SkipAuth()
+  @HttpCode(HttpStatus.OK)
   @Post('logout')
   async logout(
-    @Request() req: any,
+    @Request() req,
     @Res({ passthrough: true }) res: Response,
   ) {
-    const user = req.user;
-
-    await this.authService.logout(user.sub);
+    //TODO: implement logic to remove refreshtoken in DB
 
     CookieHelper.clearAuthCookies(res);
-
+    console.log("session deleted ", res.getHeaders())
+    console.log('req.secure:', req.secure);
+    console.log('x-forwarded-proto:', req.headers['x-forwarded-proto']);
     return { message: 'Logout success' };
   }
 }

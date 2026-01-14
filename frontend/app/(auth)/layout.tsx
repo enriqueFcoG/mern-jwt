@@ -1,23 +1,17 @@
-"use client"
-import { getCurrentUser } from "@/services/users.service";
+import { getCurrentUser, validateSession } from "@/services/users.service";
 import { redirect } from "next/navigation";
-import { useEffect } from "react";
 
-export default function AuthLayout({
+export default async function AuthLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  console.log("rendering auth layout")
+  const user = await validateSession();
 
-    useEffect(() => {
-      const validateSession = async () => {
-        const user = await getCurrentUser()
-        if(user?.email) {
-          redirect("/home") 
-        } 
-      }
-      // validateSession()
-    })
+  if (user?.email) {
+    redirect("/home");
+  }
 
   return (
     <div className="flex justify-center items-center h-screen">    

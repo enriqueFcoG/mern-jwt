@@ -1,12 +1,8 @@
-import { redirect } from "next/navigation";
+"use server";
 
-export async function logout() {
-    //call backend api to logout user
-    await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/logout`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      credentials: "include"
-    });
+import { logout } from "@/services/users.service";
 
-    redirect('/login')
+export async function logoutAction() {
+  //some others delete actions
+  await logout();
 }
